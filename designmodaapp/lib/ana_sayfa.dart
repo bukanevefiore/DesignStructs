@@ -1,3 +1,4 @@
+import 'package:designmodaapp/detay_sayfa.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,13 +8,42 @@ class AnaSayfa extends StatefulWidget {
   _AnaSayfaState createState() => _AnaSayfaState();
 }
 
-class _AnaSayfaState extends State<AnaSayfa> {
+class _AnaSayfaState extends State<AnaSayfa> with SingleTickerProviderStateMixin{
 
   var title="Moda Application";
+  TabController tabController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    tabController=TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+
+    tabController.dispose();
+    super.dispose();
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Material(
+        color: Colors.white,
+        child: TabBar(
+          controller: tabController,
+          indicatorColor: Colors.black,
+          tabs: [
+            Tab(icon: Icon(Icons.more,color: Colors.grey,size: 24,),),
+            Tab(icon: Icon(Icons.play_arrow,color: Colors.grey,size: 24,),),
+            Tab(icon: Icon(Icons.navigation,color: Colors.grey,size: 24,),),
+            Tab(icon: Icon(Icons.supervised_user_circle_outlined,color: Colors.grey,size: 24,),),
+        ],),
+      ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -152,34 +182,58 @@ class _AnaSayfaState extends State<AnaSayfa> {
           // resimler
           Row(
             children: [
-              Container(
-                width: (MediaQuery.of(context).size.width-50) / 2,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  image: DecorationImage(image: AssetImage('assets/modelgrid1.jpeg'),
-                  fit: BoxFit.cover,),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetaySayfa(imgPath: 'assets/modelgrid1.jpeg')));
+                },
+                child: Hero(
+                  tag: 'assets/modelgrid1.jpeg',
+                  child: Container(
+                    width: (MediaQuery.of(context).size.width-50) / 2,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      image: DecorationImage(image: AssetImage('assets/modelgrid1.jpeg'),
+                      fit: BoxFit.cover,),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(width: 10,),
               Column(
                   children: [
-                    Container(
-                      width: (MediaQuery.of(context).size.width-125) / 2,
-                      height: 95,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        image: DecorationImage(image: AssetImage('assets/modelgrid2.jpeg'),
-                        fit: BoxFit.cover),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DetaySayfa(imgPath: 'assets/modelgrid2.jpeg',)));
+                      },
+                      child: Hero(
+                        tag: 'assets/modelgrid2.jpeg',
+                        child: Container(
+                          width: (MediaQuery.of(context).size.width-125) / 2,
+                          height: 95,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(image: AssetImage('assets/modelgrid2.jpeg'),
+                            fit: BoxFit.cover),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(height: 10,),
-                    Container(
-                      width: (MediaQuery.of(context).size.width-125) / 2,
-                      height: 95,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage('assets/modelgrid3.jpeg'),
-                            fit: BoxFit.cover),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DetaySayfa(imgPath: 'assets/modelgrid3.jpeg',)));
+                      },
+                      child: Hero(
+                        tag: 'assets/modelgrid3.jpeg',
+                        child: Container(
+                          width: (MediaQuery.of(context).size.width-125) / 2,
+                          height: 95,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(image: AssetImage('assets/modelgrid3.jpeg'),
+                                fit: BoxFit.cover),
+                          ),
+                        ),
                       ),
                     ),
                   ],
